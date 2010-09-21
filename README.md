@@ -1,6 +1,6 @@
-Overscroll v1.3.5
+Overscroll v1.3.x
 =================
-Thursday, August 26th 2010
+Tuesday, September 21st 2010
 
 Overscroll is a jQuery Plugin that emulates the iPhone scrolling experience in a browser. It is intended for use with the latest version of jQuery http://code.jquery.com/jquery-latest.min.js
 
@@ -29,7 +29,7 @@ Usage
     * `options.closedCursor` `{String: 'closed.cur'}`
         - A url pointing at a .cur file to be used as the cursor when dragging the overscrolled element
     * `options.direction` `{String: 'auto'}`
-        - The scroll direction of the overscrolled element, by default it will auto-detect the available directions. You can also restrict direction by setting this property equal to 'vertical' or 'horizontal'
+        - The scroll direction of the overscrolled element, by default it will auto-detect the available directions. You can also restrict direction by setting this property equal to 'vertical' or 'horizontal' or specify an angle in degrees
     * `options.wheelDirection` `{String: 'vertical'}`
         - The direction scrolled when the mouse wheel is triggered. Options are 'horizontal' for left/right scrolling and 'vertical' for up/down scrolling.
     * `options.wheelDelta` `{Number: 20}`
@@ -43,7 +43,7 @@ Notes
 -----
 In order to get the most out of this plugin, make sure to only apply it to parent elements that are smaller than the collective width and/or height then their children. This way, you can see the actual scroll effect as you pan the element.
 
-While you can programatically control whether or not overscroll allows horizontal and/or vertical scroll, it is best practice to size the child elements accordingly (via CSS) and not depend on programatic restrictions.
+While you can programatically control whether or not overscroll allows horizontal and/or vertical scroll, it is best practice to size the child elements accordingly (via CSS) and not depend on programatic restrictions. If you wish to specify a scrolling direction in degrees note that angles are measured clockwise from 3 o'clock.
 
 As of 1.3.1, if you would like to add click handlers to links inside of overscroll, you can dynamially check the state of the overscrolled element via the jQuery.data method. This ability should allow you to exit a click handler if a drag state is detected. For example, an overscrolled jQuery element "elm" can be checked for drag state via elm.data("dragging").
 
@@ -52,6 +52,9 @@ You MUST have two cursors to get the "hand" to show up, open, and close during t
 Change Log
 ----------
 
+ * ###1.3.x
+    - Added the ability to specify arbitrary scroll directions as a number of degrees.
+    - Fixed inconsistent formatting
  * ###1.3.5
     - Added the ability to toggle mouse wheel scroll direction via options.wheelDirection (thanks Volderr)
        + http://github.com/azoff/Overscroll/issues/4

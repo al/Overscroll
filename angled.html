@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Angled jQuery.overscroll</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <link href="http://gist.github.com/raw/590019/d7098102f1bd5e0713dfa0621d1acc167cbf2461/meyer-reset-reloaded.css" media="screen" rel="stylesheet" type="text/css"/>
+    <style>
+      .clearfix:after {
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+      }
+      
+      .clearfix {
+        display: inline-block;
+      }
+      
+      html[xmlns] .clearfix {
+        display: block;
+      }
+      
+      * html .clearfix {
+        height: 1%;
+      }
+    </style>
+    <style>
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      li {
+        list-style: none;
+        width: 98px;
+        height: 98px;
+        text-align: center;
+        font-size: 25px;
+        line-height: 30px;
+        font-weight: bold;
+        border: 1px solid #000000;
+        float: left;
+      }
+      
+      div {
+        width: 400px;
+        height: 400px;
+        margin: 0 auto;
+        border: solid 1px #000000;
+        position: relative;
+      }
+      
+      #viewport {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      
+      canvas {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+    
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="jquery.overscroll.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var angle = 45;
+        
+        var n = 20;
+        var ul = jQuery('#viewport ul:first');
+        ul.css({ width: n * 100 })
+        for(var i = 0; i < Math.pow(n, 2); i++) {
+          ul.append('<li>' + (i + 1) + '</li>');
+        }
+        
+        var canvas = $('canvas').get(0);
+        if(canvas.getContext) {
+          canvas.setAttribute('width', 400);
+          canvas.setAttribute('height', 400);
+          var context = canvas.getContext('2d');
+          if(context) {
+            var m = Math.tan(angle / 180 * Math.PI);
+            var c = m < 0 ? $(canvas).width() : 0;
+            var x0 = 0
+            var y0 = m * x0 + c;
+            var x1 = $(canvas).width();
+            var y1 = m * x1 + c;
+            context.beginPath();
+            context.moveTo(x0, y0);
+            context.lineTo(x1, y1);
+            context.strokeStyle = '#000000';
+            context.stroke();
+          }
+        }
+        
+        $('#viewport').overscroll({
+          showThumbs: false,
+          scrollDelta: 25,
+          direction: angle
+        });
+      });
+    </script>
+  </head>
+  
+  <body>
+    <div>
+      <canvas></canvas>
+      <div id="viewport">
+        <ul></ul>
+      </div>
+    </div>
+  </body>
+</html>
